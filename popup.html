@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camouflage Academic Reader</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      width: 280px;
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      font-size: 12px;
+      background: #fff;
+      color: #2c2c2c;
+      user-select: none;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: linear-gradient(135deg, #1a237e, #283593);
+      color: #fff;
+      padding: 14px 16px 12px;
+    }
+    .header-row { display: flex; align-items: center; gap: 10px; }
+    .header-icon { font-size: 22px; line-height: 1; }
+    .header-text h1 { font-size: 13px; font-weight: 700; letter-spacing: 0.2px; }
+    .header-text p  { font-size: 9px; opacity: 0.65; margin-top: 2px; font-style: italic; }
+
+    /* ── Body ── */
+    .body { padding: 14px 16px; }
+
+    /* ── Main toggle ── */
+    .toggle-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f3f4f9;
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-bottom: 12px;
+      border: 1px solid #e0e3f0;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-card:hover { background: #e8ebf8; }
+    .toggle-label strong { display: block; font-size: 13px; color: #1a237e; }
+    .toggle-label span   { font-size: 10px; color: #777; margin-top: 2px; display: block; }
+
+    /* Switch */
+    .switch { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .knob {
+      position: absolute; inset: 0;
+      background: #ccc; border-radius: 24px;
+      transition: background 0.3s; cursor: pointer;
+    }
+    .knob::before {
+      content: ''; position: absolute;
+      width: 18px; height: 18px; left: 3px; top: 3px;
+      background: #fff; border-radius: 50%;
+      transition: transform 0.3s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    }
+    .switch input:checked ~ .knob { background: #1a237e; }
+    .switch input:checked ~ .knob::before { transform: translateX(20px); }
+
+    /* ── Status badge ── */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 10px; font-weight: 600;
+      padding: 3px 8px; border-radius: 12px;
+      background: #eee; color: #888;
+      margin-bottom: 14px; transition: all 0.3s;
+    }
+    .status-badge.on { background: #e8f0fe; color: #1a237e; }
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #ccc; transition: background 0.3s;
+    }
+    .status-badge.on .status-dot { background: #1a237e; }
+
+    /* ── Settings section ── */
+    .settings-section { margin-bottom: 12px; }
+    .settings-title {
+      font-size: 9px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      color: #999; margin-bottom: 6px;
+    }
+    .radio-group { display: flex; flex-direction: column; gap: 4px; }
+    .radio-option {
+      display: flex; align-items: center; gap: 10px;
+      padding: 7px 10px; border-radius: 8px; cursor: pointer;
+      border: 1px solid #eee; transition: background 0.15s;
+    }
+    .radio-option:hover { background: #f5f5fa; }
+    .radio-option:has(input:checked) { background: #e8ebf8; border-color: #c0c8f0; }
+    .radio-option input[type="radio"] {
+      accent-color: #1a237e; width: 14px; height: 14px; flex-shrink: 0; cursor: pointer;
+    }
+    .radio-text strong { display: block; font-size: 11px; color: #2c2c2c; font-weight: 600; }
+    .radio-text span   { font-size: 9px; color: #999; }
+
+    /* ── Hover option ── */
+    .hover-option {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 10px; border-radius: 8px;
+      border: 1px solid #eee; margin-bottom: 14px;
+    }
+    .hover-text strong { display: block; font-size: 11px; color: #2c2c2c; font-weight: 600; }
+    .hover-text span   { font-size: 9px; color: #999; }
+    /* smaller switch for hover option */
+    .hover-option .switch { width: 36px; height: 20px; }
+    .hover-option .knob::before { width: 14px; height: 14px; }
+    .hover-option .switch input:checked ~ .knob::before { transform: translateX(16px); }
+
+    /* ── Divider ── */
+    hr { border: none; border-top: 1px solid #eee; margin: 12px 0; }
+
+    /* ── Shortcut tips ── */
+    .tips { display: flex; flex-direction: column; gap: 5px; }
+    .tip {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 10px; color: #555;
+      padding: 5px 8px; background: #f8f8f8; border-radius: 6px;
+    }
+    .tip-icon { font-size: 13px; width: 18px; text-align: center; }
+    kbd {
+      display: inline-block; background: #e4e4e4;
+      border: 1px solid #bbb; border-bottom-width: 2px;
+      border-radius: 3px; padding: 1px 5px;
+      font-family: monospace; font-size: 10px; color: #222; line-height: 1.4;
+    }
+
+    /* ── Footer ── */
+    .footer { text-align: center; font-size: 9px; color: #aaa; padding: 0 0 4px; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="header-row">
+      <span class="header-icon">📄</span>
+      <div class="header-text">
+        <h1>Camouflage Academic Reader</h1>
+        <p>Distraction-free Reader Mode</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="body">
+    <!-- Main toggle -->
+    <label class="toggle-card" for="mainToggle">
+      <div class="toggle-label">
+        <strong>Academic Mode</strong>
+        <span>Transform page → paper format</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="mainToggle">
+        <span class="knob"></span>
+      </label>
+    </label>
+
+    <!-- Status -->
+    <div class="status-badge" id="statusBadge">
+      <span class="status-dot"></span>
+      <span id="statusText">Mode: OFF</span>
+    </div>
+
+    <!-- Layout style -->
+    <div class="settings-section">
+      <div class="settings-title">Layout</div>
+      <div class="radio-group">
+        <label class="radio-option">
+          <input type="radio" name="readerStyle" value="academic" id="styleAcademic" checked>
+          <div class="radio-text">
+            <strong>Academic Paper</strong>
+            <span>2 columns · Times New Roman</span>
+          </div>
+        </label>
+        <label class="radio-option">
+          <input type="radio" name="readerStyle" value="newspaper" id="styleNewspaper">
+          <div class="radio-text">
+            <strong>Newspaper</strong>
+            <span>3 columns · Masthead</span>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <!-- Hover tooltip toggle -->
+    <div class="hover-option">
+      <div class="hover-text">
+        <strong>Original text on hover</strong>
+        <span>Hover to reveal Japanese source</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="tooltipToggle" checked>
+        <span class="knob"></span>
+      </label>
+    </div>
+
+    <hr>
+
+    <!-- Shortcut tips -->
+    <div class="tips">
+      <div class="tip">
+        <span class="tip-icon">⌨️</span>
+        <span>Toggle: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>L</kbd></span>
+      </div>
+      <div class="tip">
+        <span class="tip-icon">🚨</span>
+        <span>Boss Key: press <kbd>Esc</kbd> twice</span>
+      </div>
+    </div>
+
+    <hr>
+    <div class="footer">v2.1.0 &nbsp;·&nbsp; Camouflage Academic Reader</div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

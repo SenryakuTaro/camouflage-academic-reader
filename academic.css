@@ -1,0 +1,383 @@
+/* ============================================================
+   Camouflage Academic Reader — academic.css
+   オーバーレイ専用スタイル。サイト元CSSとは完全分離。
+   ============================================================ */
+
+/* ===== OVERLAY: サイト全体を覆う ===== */
+#cam-ar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  background: #f5f4ef;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-family: 'Times New Roman', 'Georgia', Times, serif;
+  font-size: 11pt;
+  color: #111;
+  line-height: 1.65;
+  box-sizing: border-box;
+}
+
+/* ===== STICKY JOURNAL HEADER ===== */
+#cam-ar-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #f5f4ef;
+  border-bottom: 2px solid #222;
+  padding: 5px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8.5pt;
+  font-style: italic;
+  letter-spacing: 0.3px;
+  color: #333;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+#cam-ar-journal { flex: 1; text-align: center; }
+#cam-ar-pagenum { font-style: normal; font-size: 8pt; color: #666; white-space: nowrap; }
+
+/* ===== SCROLLABLE AREA ===== */
+#cam-ar-scroll {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 32px 48px 80px;
+}
+
+/* ===== PAPER CONTAINER ===== */
+#cam-ar-paper {
+  background: #fff;
+  border: 1px solid #d8d5c8;
+  padding: 40px 48px 48px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* ===== TITLE ===== */
+#cam-ar-title {
+  font-family: 'Times New Roman', serif;
+  font-size: 16pt;
+  font-weight: bold;
+  text-align: center;
+  color: #111;
+  margin: 0 0 12px;
+  line-height: 1.4;
+}
+
+/* ===== BYLINE / META ===== */
+#cam-ar-byline {
+  font-family: 'Times New Roman', serif;
+  font-size: 8.5pt;
+  color: #555;
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* ===== ABSTRACT ===== */
+#cam-ar-abstract {
+  font-family: 'Times New Roman', serif;
+  font-size: 10pt;
+  background: #fafaf7;
+  border: 1px solid #ddd;
+  border-left: 3px solid #555;
+  padding: 12px 16px;
+  margin: 0 0 20px;
+  line-height: 1.6;
+  color: #222;
+}
+
+#cam-ar-abstract em {
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* ===== DIVIDER ===== */
+#cam-ar-rule {
+  border: none;
+  border-top: 1.5px solid #aaa;
+  margin: 0 0 20px;
+}
+
+/* ===== 2-COLUMN BODY ===== */
+#cam-ar-body {
+  column-count: 2;
+  column-gap: 44px;
+  column-rule: 1px solid #ccc;
+}
+
+/* ===== BODY ELEMENTS ===== */
+#cam-ar-body p {
+  font-family: 'Times New Roman', serif;
+  font-size: 10.5pt;
+  text-align: justify;
+  text-indent: 1.5em;
+  margin: 0 0 0.45em;
+  line-height: 1.65;
+  break-inside: avoid-column;
+  orphans: 3;
+  widows: 3;
+  cursor: default;
+}
+
+#cam-ar-body h2 {
+  font-family: 'Times New Roman', serif;
+  font-size: 11pt;
+  font-weight: bold;
+  color: #111;
+  margin: 1.2em 0 0.4em;
+  break-after: avoid-column;
+  cursor: default;
+}
+
+#cam-ar-body h3 {
+  font-family: 'Times New Roman', serif;
+  font-size: 10.5pt;
+  font-weight: bold;
+  font-style: italic;
+  color: #222;
+  margin: 1em 0 0.3em;
+  break-after: avoid-column;
+  cursor: default;
+}
+
+#cam-ar-body ul {
+  margin: 0.3em 0 0.3em 1.2em;
+  padding: 0;
+}
+
+#cam-ar-body li {
+  font-family: 'Times New Roman', serif;
+  font-size: 10.5pt;
+  margin-bottom: 0.2em;
+  text-align: justify;
+  cursor: default;
+}
+
+/* ===== LINKS (academic paper style) ===== */
+#cam-ar-body a.cam-ar-link,
+#cam-ar-abstract a.cam-ar-link {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#cam-ar-body a.cam-ar-link:hover,
+#cam-ar-abstract a.cam-ar-link:hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Hover highlight on hoverable blocks */
+#cam-ar-body p:hover,
+#cam-ar-body li:hover,
+#cam-ar-body h2:hover,
+#cam-ar-body h3:hover,
+#cam-ar-abstract:hover {
+  background: rgba(255, 220, 40, 0.12);
+  border-radius: 2px;
+  outline: 1px solid rgba(180, 140, 0, 0.2);
+  outline-offset: 2px;
+}
+
+/* ===== TOOLTIP ===== */
+#cam-ar-tooltip {
+  display: none;
+  position: fixed;
+  z-index: 2147483647;
+  background: #fffde7;
+  border: 1px solid #f9a825;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans',
+               'Meiryo', 'Yu Gothic UI', sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  color: #222;
+  max-width: 340px;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 2px 4px 14px rgba(0,0,0,0.18);
+  pointer-events: none;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+#cam-ar-tooltip::before {
+  content: '📖 原文';
+  display: block;
+  font-size: 9px;
+  color: #b07800;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+/* ===== LOADING STATE ===== */
+#cam-ar-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 40px);
+  font-family: 'Times New Roman', Times, serif;
+  color: #555;
+}
+
+#cam-ar-loading-spinner {
+  font-size: 32pt;
+  margin-bottom: 20px;
+  animation: cam-ar-pulse 1.4s ease-in-out infinite;
+  color: #1a237e;
+}
+
+@keyframes cam-ar-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.95); }
+  50%       { opacity: 1.0; transform: scale(1.05); }
+}
+
+#cam-ar-loading-text {
+  font-size: 13pt;
+  font-style: italic;
+  margin-bottom: 8px;
+}
+
+#cam-ar-loading-sub {
+  font-size: 9pt;
+  color: #999;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 720px) {
+  #cam-ar-scroll { padding: 16px 16px 60px; }
+  #cam-ar-paper  { padding: 24px 20px 32px; }
+  #cam-ar-body   { column-count: 1; }
+  #cam-ar-title  { font-size: 13pt; }
+}
+
+/* ============================================================
+   NEWSPAPER THEME  (.cam-ar-newspaper on #cam-ar-overlay)
+   ============================================================ */
+
+/* Masthead topbar */
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-topbar {
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 24px 8px;
+  gap: 2px;
+  border-bottom: 4px double #111;
+  box-shadow: none;
+}
+
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-journal {
+  font-family: 'Times New Roman', serif;
+  font-size: 26pt;
+  font-weight: 900;
+  font-style: normal;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #000;
+  border-top: 2px solid #111;
+  border-bottom: 2px solid #111;
+  padding: 3px 12px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-pagenum {
+  font-size: 8pt;
+  font-style: italic;
+  color: #555;
+  white-space: normal;
+  text-align: center;
+}
+
+/* Paper */
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-paper {
+  padding: 24px 32px 40px;
+  border: none;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+}
+
+/* Banner headline */
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-title {
+  font-size: 22pt;
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-bottom: 3px solid #111;
+  padding-bottom: 6px;
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+/* Byline */
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-byline {
+  font-size: 7.5pt;
+  text-align: left;
+  border-bottom: 1px solid #bbb;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+/* Lead / abstract */
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-abstract {
+  background: transparent;
+  border: none;
+  border-left: none;
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 10px;
+  margin-bottom: 12px;
+  font-size: 10.5pt;
+  font-style: italic;
+}
+
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-abstract em {
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* 3-column body */
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-body {
+  column-count: 3;
+  column-gap: 20px;
+  column-rule: 1px solid #bbb;
+}
+
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-body p {
+  font-size: 9.5pt;
+  text-indent: 1em;
+  margin: 0 0 0.3em;
+  line-height: 1.55;
+}
+
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-body h2 {
+  font-size: 11pt;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-style: normal;
+  border-bottom: 1px solid #666;
+  padding-bottom: 2px;
+  margin: 1em 0 0.3em;
+}
+
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-body h3 {
+  font-size: 10pt;
+  font-weight: bold;
+  font-style: italic;
+  margin: 0.8em 0 0.2em;
+}
+
+#cam-ar-overlay.cam-ar-newspaper #cam-ar-body li {
+  font-size: 9.5pt;
+}
+
+/* Newspaper responsive */
+@media (max-width: 720px) {
+  #cam-ar-overlay.cam-ar-newspaper #cam-ar-body   { column-count: 1; }
+  #cam-ar-overlay.cam-ar-newspaper #cam-ar-journal { font-size: 16pt; letter-spacing: 2px; }
+  #cam-ar-overlay.cam-ar-newspaper #cam-ar-title   { font-size: 15pt; }
+}

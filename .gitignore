@@ -1,0 +1,20 @@
+# Node
+node_modules/
+package-lock.json
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
+
+# Claude Code session files
+.claude/
+
+# Dev tools (not needed for users)
+create_icons.html
+setup.bat
+package.json
